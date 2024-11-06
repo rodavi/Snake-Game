@@ -7,7 +7,7 @@ TODO: Create a Gif from the new version of the Snake Game
 <img src="snake_game.gif"/>
 
 ## New Features
-* The player can summit their name and save its high score.
+* The player can summit its name and save its high score.
 * After 15 points scored, the game starts to get more complicated:
   * Some static obstacles randomly appear.
 * New types of food have been added to the game.
