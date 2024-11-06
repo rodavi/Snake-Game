@@ -1,12 +1,21 @@
-# CPPND: Capstone Snake Game Example
+# Capstone Snake Game
 
-This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+This is a new version of the Snake Game, which has been developed to fulfill the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213) 
+The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
+TODO: Create a Gif from the new version of the Snake Game
 <img src="snake_game.gif"/>
 
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
-
-In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
+## New Features
+* The player can summit their name and save its high score.
+* After 15 points scored, the game starts to get more complicated:
+  * Some static obstacles randomly appear.
+* New types of food have been added to the game.
+  * Slowdown the snake
+  * Double the points
+  * Extra life 
+* The difficulty level can be selected before starting the game, this will modify the initial speed.
+* After 50 points scored, an extra snake appears, it has the ability to jump over you but your snake can't.
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
