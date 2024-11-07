@@ -10,7 +10,8 @@ int main() {
   /*
     Scores
   */
-  Scores score("scores.txt");
+  Scores scored;
+  scored.getScores("scores.txt");
   constexpr std::size_t kFramesPerSecond{60};
   constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};
   constexpr std::size_t kScreenWidth{640};
@@ -25,5 +26,18 @@ int main() {
   std::cout << "Game has terminated successfully!\n";
   std::cout << "Score: " << game.GetScore() << "\n";
   std::cout << "Size: " << game.GetSize() << "\n";
+
+  if(game.GetScore() > scored.getLast().score)
+  {
+    std::string new_player_name;
+    
+    std::cout<<"New Top 3 score!, please add your name: ";
+    std::cin>>new_player_name;
+    Player new_player;
+    new_player.name = new_player_name;
+    new_player.score = game.GetScore();
+    scored.setScores(new_player);
+    scored.printScores();
+  }
   return 0;
 }

@@ -35,7 +35,24 @@ void Controller::HandleInput(bool &running, Snake &snake) const {
           ChangeDirection(snake, Snake::Direction::kRight,
                           Snake::Direction::kLeft);
           break;
+        case SDLK_SPACE:
+          PauseGame(snake);
+          break;
       }
     }
   }
+}
+
+void Controller::PauseGame(Snake& snake) const
+{
+  if(!snake.paused){
+    snake.prev_speed = snake.speed;
+    snake.speed = 0;
+    snake.paused = true;
+  }
+  else{
+    snake.speed = snake.prev_speed;
+    snake.paused = false;
+  }
+  return;
 }

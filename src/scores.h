@@ -1,3 +1,6 @@
+#ifndef SCORES_H
+#define SCORES_H
+
 #include <vector>
 #include <string>
 #include <fstream>
@@ -13,17 +16,18 @@ struct Player{
 class Scores{
 
 public:
-    Scores(const std::string& path);
-
-    std::vector<Player> getScores();
+    Scores(){}
+    std::vector<Player> getScores(const std::string& path);
     void setScores(Player& p);
     Player getBest();
+    Player getLast();
     void printScores();
 private:
     
     std::fstream _file;
     std::vector<Player> _scores;
-    std::unique_ptr<std::string> _path;
+    std::string _path;
     int new_score{0};
     std::string new_player;
 };
+#endif

@@ -6,7 +6,7 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
     : snake(grid_width, grid_height),
       engine(dev()),
       random_w(0, static_cast<int>(grid_width - 1)),
-      random_h(0, static_cast<int>(grid_height - 1)) {
+      random_h(0, static_cast<int>(grid_height - 1)){
   PlaceFood();
 }
 
@@ -48,6 +48,10 @@ void Game::Run(Controller const &controller, Renderer &renderer,
       SDL_Delay(target_frame_duration - frame_duration);
     }
   }
+  // Game stop
+  // Save the new score if better than the last top 3
+  //std::cout<<score<<"\n";
+  //std::cout<<scored.getLast().score<<"\n";
 }
 
 void Game::PlaceFood() {

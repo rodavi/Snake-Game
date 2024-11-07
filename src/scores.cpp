@@ -1,15 +1,17 @@
 #include "scores.h"
 
-Scores::Scores(const std::string& path)
+/*Scores::Scores()
 {
     _path = std::make_unique<std::string>("../"+path);
     getScores();
-}
+}*/
 
-std::vector<Player> Scores::getScores()
+std::vector<Player> Scores::getScores(const std::string& path)
 {
+    _path = "../"+path;
+    std::cout<<_path<<"\n";
     std::string line, player, score;
-    _file.open(*_path);
+    _file.open(_path);
     if(_file.is_open())
     {
         std::cout<<"The Top 3 scores are:\n";
@@ -28,6 +30,7 @@ std::vector<Player> Scores::getScores()
         _file.close();
         std::sort(_scores.begin(), _scores.end(), 
         [](Player& a, Player& b){return a.score>b.score;}); //sort the players base on their score
+        printScores();
     }
     else std::cout<<"File unable to open!\n";
 
@@ -40,11 +43,24 @@ void Scores::setScores(Player& p)
     std::sort(_scores.begin(), _scores.end(), 
         [](Player& a, Player& b){return a.score>b.score;}); //sort the players base on their score
     _scores.erase(_scores.end());   //stay with only 3 spots
+
+    std::ofstream o_file;
+    o_file.open(_path);
+    for(auto single_score:_scores)
+    {
+        o_file<<single_score.name<<"="<<single_score.score<<"\n";
+    }
+    o_file.close();
 }
 
 Player Scores::getBest()
 {
     return *_scores.begin();
+}
+
+Player Scores::getLast()
+{
+    return *_scores.end();
 }
 
 void Scores::printScores()
