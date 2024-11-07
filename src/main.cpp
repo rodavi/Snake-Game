@@ -30,7 +30,8 @@ int main() {
   if(game.GetScore() > scored.getLast().score)
   {
     std::string new_player_name;
-    
+    std::cout<<game.GetScore()<<"\n";
+    std::cout<<scored.getLast().score<<"\n";
     std::cout<<"New Top 3 score!, please add your name: ";
     std::cin>>new_player_name;
     Player new_player;

@@ -14,9 +14,9 @@ std::vector<Player> Scores::getScores(const std::string& path)
     _file.open(_path);
     if(_file.is_open())
     {
-        std::cout<<"The Top 3 scores are:\n";
-        while(std::getline(_file, line))    // Read every line
-        {
+        std::cout<<"The Top "<<top_count<<" scores are:\n";
+        for(size_t i = 0; i<top_count;++i){
+            std::getline(_file, line);   // Read every line
             std::replace(line.begin(), line.end(), '=', ' ');   //replace the '=' with whitespace
             std::istringstream stream(line);
             while(stream>> player >> score)
@@ -46,9 +46,14 @@ void Scores::setScores(Player& p)
 
     std::ofstream o_file;
     o_file.open(_path);
+    int i = 0;
     for(auto single_score:_scores)
     {
-        o_file<<single_score.name<<"="<<single_score.score<<"\n";
+        o_file<<single_score.name<<"="<<single_score.score;
+        if(top_count != i-1) {
+            o_file<<"\n";
+            i++;
+        }
     }
     o_file.close();
 }
@@ -60,7 +65,7 @@ Player Scores::getBest()
 
 Player Scores::getLast()
 {
-    return *_scores.end();
+    return _scores[top_count-1];
 }
 
 void Scores::printScores()

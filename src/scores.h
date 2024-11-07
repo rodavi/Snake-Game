@@ -29,5 +29,6 @@ private:
     std::string _path;
     int new_score{0};
     std::string new_player;
+    size_t top_count{3};
 };
 #endif
