@@ -2,8 +2,15 @@
 #include "controller.h"
 #include "game.h"
 #include "renderer.h"
+#include "scores.h"
+
 
 int main() {
+
+  /*
+    Scores
+  */
+  Scores score("scores.txt");
   constexpr std::size_t kFramesPerSecond{60};
   constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};
   constexpr std::size_t kScreenWidth{640};
