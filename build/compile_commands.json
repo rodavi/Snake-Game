@@ -34,5 +34,11 @@
   "command": "/usr/bin/g++  -I/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src -isystem /usr/include/SDL2 -g -std=gnu++17   -std=c++17 -o CMakeFiles/SnakeGame.dir/src/scores.cpp.o -c /home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/scores.cpp",
   "file": "/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/scores.cpp",
   "output": "CMakeFiles/SnakeGame.dir/src/scores.cpp.o"
+},
+{
+  "directory": "/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/build",
+  "command": "/usr/bin/g++  -I/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src -isystem /usr/include/SDL2 -g -std=gnu++17   -std=c++17 -o CMakeFiles/SnakeGame.dir/src/food.cpp.o -c /home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/food.cpp",
+  "file": "/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/food.cpp",
+  "output": "CMakeFiles/SnakeGame.dir/src/food.cpp.o"
 }
 ]

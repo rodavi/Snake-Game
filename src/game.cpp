@@ -24,6 +24,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, snake);
+    //std::cout<<frame_start<<"\n";
     Update();
     renderer.Render(snake, food);
 
@@ -48,22 +49,24 @@ void Game::Run(Controller const &controller, Renderer &renderer,
       SDL_Delay(target_frame_duration - frame_duration);
     }
   }
-  // Game stop
-  // Save the new score if better than the last top 3
-  //std::cout<<score<<"\n";
-  //std::cout<<scored.getLast().score<<"\n";
 }
 
 void Game::PlaceFood() {
   int x, y;
   while (true) {
+    food.selectType();
     x = random_w(engine);
     y = random_h(engine);
     // Check that the location is not occupied by a snake item before placing
     // food.
     if (!snake.SnakeCell(x, y)) {
-      food.x = x;
-      food.y = y;
+      /*food.x = x;
+      food.y = y;*/
+      SDL_Point p;
+      p.x = x;
+      p.y = y;
+      //std::cout<<"New Food: "<<p.x<<" "<<p.y<<"\n";
+      food.setPosition(p);
       return;
     }
   }
@@ -78,12 +81,41 @@ void Game::Update() {
   int new_y = static_cast<int>(snake.head_y);
 
   // Check if there's food over here
-  if (food.x == new_x && food.y == new_y) {
+  /*if (food.x == new_x && food.y == new_y) {
     score++;
     PlaceFood();
     // Grow snake and increase speed.
     snake.GrowBody();
     snake.speed += 0.02;
+  }*/
+  //std::cout<<"Update\n";
+  auto food_position = food.getPosition();
+  if (food_position.x == new_x && food_position.y == new_y) {
+    //std::cout<<"Update..\n";
+    if(food.getType() == Food::FoodType::kLowSpeed)
+    {
+      snake.prev_speed = snake.speed; // save the previews value of speed
+      snake.speed*=0.5;
+    }
+    else
+    {
+      snake.speed += 0.02;
+    }
+
+    if(food.getType() == Food::FoodType::kDoublePoints)
+    {
+      score+=2;
+    }
+    else
+    {
+      score++;
+    }
+    
+    PlaceFood();
+    // Grow snake and increase speed.
+    snake.GrowBody();
+    
+    //std::cout<<"Update end\n";
   }
 }
 

@@ -7,11 +7,9 @@
 
 int main() {
 
-  /*
-    Scores
-  */
   Scores scored;
   scored.getScores("scores.txt");
+  
   constexpr std::size_t kFramesPerSecond{60};
   constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};
   constexpr std::size_t kScreenWidth{640};
@@ -24,14 +22,10 @@ int main() {
   Game game(kGridWidth, kGridHeight);
   game.Run(controller, renderer, kMsPerFrame);
   std::cout << "Game has terminated successfully!\n";
-  std::cout << "Score: " << game.GetScore() << "\n";
-  std::cout << "Size: " << game.GetSize() << "\n";
 
   if(game.GetScore() > scored.getLast().score)
   {
     std::string new_player_name;
-    std::cout<<game.GetScore()<<"\n";
-    std::cout<<scored.getLast().score<<"\n";
     std::cout<<"New Top 3 score!, please add your name: ";
     std::cin>>new_player_name;
     Player new_player;

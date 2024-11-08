@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/controller.cpp" "CMakeFiles/SnakeGame.dir/src/controller.cpp.o" "gcc" "CMakeFiles/SnakeGame.dir/src/controller.cpp.o.d"
+  "/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/food.cpp" "CMakeFiles/SnakeGame.dir/src/food.cpp.o" "gcc" "CMakeFiles/SnakeGame.dir/src/food.cpp.o.d"
   "/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/game.cpp" "CMakeFiles/SnakeGame.dir/src/game.cpp.o" "gcc" "CMakeFiles/SnakeGame.dir/src/game.cpp.o.d"
   "/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/main.cpp" "CMakeFiles/SnakeGame.dir/src/main.cpp.o" "gcc" "CMakeFiles/SnakeGame.dir/src/main.cpp.o.d"
   "/home/rodrigo/Documents/C++/SnakeProject/Snake-Game/src/renderer.cpp" "CMakeFiles/SnakeGame.dir/src/renderer.cpp.o" "gcc" "CMakeFiles/SnakeGame.dir/src/renderer.cpp.o.d"
