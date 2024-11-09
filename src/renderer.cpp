@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+
 Renderer::Renderer(const std::size_t screen_width,
                    const std::size_t screen_height,
                    const std::size_t grid_width, const std::size_t grid_height)
@@ -109,6 +110,23 @@ void Renderer::Render(Snake const snake, Food &food) {
   SDL_RenderPresent(sdl_renderer);
 }
 
+void Renderer::Render(Snake const snake, Food &food, std::promise<bool>&& prms)
+{
+  std::shared_ptr<SDL_Rect> block = std::make_shared<SDL_Rect>();
+  block->w = screen_width / grid_width;
+  block->h = screen_height / grid_height;
+  // Clear screen
+  ClearScreen();
+  // Render food
+  block = RenderFood(block, snake, food);
+  // Render Snake
+  block = RenderSnake(block, snake);
+  // Update Screen
+  SDL_RenderPresent(sdl_renderer);
+
+  prms.set_value(true);
+}
+
 void Renderer::UpdateWindowTitle(int score, int fps) {
   std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
@@ -139,12 +157,31 @@ std::shared_ptr<SDL_Rect> Renderer::RenderFood(std::shared_ptr<SDL_Rect> block, 
 
 std::shared_ptr<SDL_Rect> Renderer::RenderSnake(std::shared_ptr<SDL_Rect> block, const Snake& snake)
 {
-  // Render snake's body
+  // Render snake's body in parallel
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  for (SDL_Point const &point : snake.body) {
-    block->x = point.x * block->w;
+
+  size_t numThreads = std::thread::hardware_concurrency();  // Get number of threads supported by the hardware
+  size_t chunkSize = snake.body.size() / numThreads;
+  std::vector<std::thread> threads;
+  //for (SDL_Point const &point : snake.body) {
+  for (size_t i = 0; i < numThreads; ++i){
+    /*block->x = point.x * block->w;
     block->y = point.y * block->h;
-    SDL_RenderFillRect(sdl_renderer, block.get());
+    SDL_RenderFillRect(sdl_renderer, block.get());*/
+
+    size_t start = i * chunkSize;
+    size_t end = (i == numThreads - 1) ? snake.body.size() : (i + 1) * chunkSize;
+
+    threads.push_back(std::thread([=]() {
+        for (size_t j = start; j < end; ++j) {
+            drawBody(block, snake.body[j]);
+        }
+    }));
+  }
+
+  // Join all threads
+  for (auto& t : threads) {
+      t.join();
   }
 
   // Render snake's head
@@ -158,4 +195,13 @@ std::shared_ptr<SDL_Rect> Renderer::RenderSnake(std::shared_ptr<SDL_Rect> block,
   SDL_RenderFillRect(sdl_renderer, block.get());
 
   return block;
+}
+
+void Renderer::drawBody(std::shared_ptr<SDL_Rect> block, SDL_Point p)
+{
+    block->x = p.x * block->w;
+    block->y = p.y * block->h;
+
+    std::lock_guard<std::mutex> lock(renderMutex); // SDL_RenderFillRect is not thread-safe thus mutex is needed.
+    SDL_RenderFillRect(sdl_renderer, block.get());
 }

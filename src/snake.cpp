@@ -39,8 +39,19 @@ void Snake::UpdateHead() {
   }
 
   // Wrap the Snake around to the beginning if going off of the screen.
-  head_x = fmod(head_x + grid_width, grid_width);
-  head_y = fmod(head_y + grid_height, grid_height);
+  //head_x = fmod(head_x + grid_width, grid_width);
+  //head_y = fmod(head_y + grid_height, grid_height);
+
+  std::future<double> f_head_x = std::async([this](){
+   return fmod(head_x + grid_width, grid_width);
+  });
+  std::future<double> f_head_y = std::async([this](){
+   return fmod(head_y + grid_height, grid_height);
+  });
+
+  head_x = f_head_x.get();
+  head_y = f_head_y.get();
+
 }
 
 void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell) {

@@ -7,6 +7,10 @@
 #include "renderer.h"
 #include "snake.h"
 #include "food.h"
+#include <mutex>
+#include <thread>
+#include <future>
+#include "SDL_thread.h"
 
 class Game {
  public:
@@ -30,6 +34,7 @@ class Game {
 
   void PlaceFood();
   void Update();
+  void Update(std::promise<bool>&& prms);
 };
 
 #endif

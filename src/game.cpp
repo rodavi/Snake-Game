@@ -1,6 +1,7 @@
 #include "game.h"
 #include <iostream>
 #include "SDL.h"
+#include <functional> 
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)
     : snake(grid_width, grid_height),
@@ -25,7 +26,6 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, snake);
-    //std::cout<<frame_start<<"\n";
     Update();
     renderer.Render(snake, food);
 
@@ -117,6 +117,46 @@ void Game::Update() {
     snake.GrowBody();
     
     //std::cout<<"Update end\n";
+  }
+}
+
+void Game::Update(std::promise<bool>&& prms)
+{
+  if (!snake.alive) return;
+
+  snake.Update();
+
+  int new_x = static_cast<int>(snake.head_x);
+  int new_y = static_cast<int>(snake.head_y);
+
+  auto food_position = food.getPosition();
+  if (food_position.x == new_x && food_position.y == new_y) {
+    //std::cout<<"Update..\n";
+    if(food.getType() == Food::FoodType::kLowSpeed)
+    {
+      snake.prev_speed = snake.speed; // save the previews value of speed
+      snake.speed*=0.5;
+    }
+    else
+    {
+      snake.speed += 0.02;
+    }
+
+    if(food.getType() == Food::FoodType::kDoublePoints)
+    {
+      score+=2;
+    }
+    else
+    {
+      score++;
+    }
+    
+    PlaceFood();
+    // Grow snake and increase speed.
+    snake.GrowBody();
+    
+    //std::cout<<"Update end\n";
+    prms.set_value(true);
   }
 }
 
