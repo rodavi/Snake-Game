@@ -24,6 +24,10 @@ class Renderer {
   const std::size_t screen_height;
   const std::size_t grid_width;
   const std::size_t grid_height;
+
+  void ClearScreen();
+  std::shared_ptr<SDL_Rect> RenderFood(std::shared_ptr<SDL_Rect> block, const Snake& snake, Food& food);
+  std::shared_ptr<SDL_Rect> RenderSnake(std::shared_ptr<SDL_Rect> block, const Snake& snake);
 };
 
 #endif

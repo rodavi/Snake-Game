@@ -56,14 +56,14 @@ Color& Food::getColor()
 void Food::selectType()
 {
     int _rand = random_type(engine);
-    if(_rand<6){
+    if(_rand<=6){
         _ftype =FoodType::kNormal;
     }
-    else if (_rand>6 && _rand<8)
+    else if (_rand>6 && _rand<=9)
     {
         _ftype =FoodType::kDoublePoints;
     }
-    else if (_rand>8 && _rand<10)
+    else if (_rand==10)
     {
         _ftype =FoodType::kLowSpeed;
     }

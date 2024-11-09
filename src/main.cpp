@@ -3,13 +3,13 @@
 #include "game.h"
 #include "renderer.h"
 #include "scores.h"
-
+#include <memory>
 
 int main() {
 
-  Scores scored;
-  scored.getScores("scores.txt");
-  
+  std::unique_ptr<Scores> scored = std::make_unique<Scores>();
+  scored->getScores("scores.txt");
+
   constexpr std::size_t kFramesPerSecond{60};
   constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};
   constexpr std::size_t kScreenWidth{640};
@@ -18,12 +18,13 @@ int main() {
   constexpr std::size_t kGridHeight{32};
 
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
-  Controller controller;
+  //Controller controller;
+  std::unique_ptr<Controller> controller = std::make_unique<Controller>();
   Game game(kGridWidth, kGridHeight);
-  game.Run(controller, renderer, kMsPerFrame);
+  game.Run(*(controller.get()), renderer, kMsPerFrame);
   std::cout << "Game has terminated successfully!\n";
 
-  if(game.GetScore() > scored.getLast().score)
+  if(game.GetScore() > scored->getLast().score)
   {
     std::string new_player_name;
     std::cout<<"New Top 3 score!, please add your name: ";
@@ -31,8 +32,8 @@ int main() {
     Player new_player;
     new_player.name = new_player_name;
     new_player.score = game.GetScore();
-    scored.setScores(new_player);
-    scored.printScores();
+    scored->setScores(new_player);
+    scored->printScores();
   }
   return 0;
 }

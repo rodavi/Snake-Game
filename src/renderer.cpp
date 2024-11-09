@@ -81,25 +81,20 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
 }
 
 void Renderer::Render(Snake const snake, Food &food) {
-  //std::cout<<"Render Start\n";
-  SDL_Rect block;
+
+  /*SDL_Rect block;
   block.w = screen_width / grid_width;
-  block.h = screen_height / grid_height;
-
+  block.h = screen_height / grid_height;*/
+  std::shared_ptr<SDL_Rect> block = std::make_shared<SDL_Rect>();
+  block->w = screen_width / grid_width;
+  block->h = screen_height / grid_height;
   // Clear screen
-  //std::cout<<"Clear Screen";
-  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
-  SDL_RenderClear(sdl_renderer);
-  //std::cout<<"Clear Screen\n";
-
+  ClearScreen();
   // Render food
-  //std::cout<<"Color";
-  auto food_color = food.getColor();
-  //std::cout<<"Color";
+  block = RenderFood(block, snake, food);
+  /*auto food_color = food.getColor();
   SDL_SetRenderDrawColor(sdl_renderer, food_color._r, food_color._g, food_color._b, food_color._a);
-  //std::cout<<"Color"<<"\n";
   auto food_position = food.getPosition();
-  //std::cout<<"Rendering";
   block.x = food_position.x * block.w;
   block.y = food_position.y * block.h;
   SDL_RenderFillRect(sdl_renderer, &block);
@@ -107,26 +102,9 @@ void Renderer::Render(Snake const snake, Food &food) {
   SDL_SetRenderDrawColor(sdl_renderer, food_color._r, food_color._g, food_color._b, food_color._a);
   block.x = food_position.x * block.w;
   block.y = food_position.y* block.h;
-  SDL_RenderFillRect(sdl_renderer, &block);
-  //std::cout<<"Rendering"<<"\n";
-  // Render snake's body
-  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-  for (SDL_Point const &point : snake.body) {
-    block.x = point.x * block.w;
-    block.y = point.y * block.h;
-    SDL_RenderFillRect(sdl_renderer, &block);
-  }
-
-  // Render snake's head
-  block.x = static_cast<int>(snake.head_x) * block.w;
-  block.y = static_cast<int>(snake.head_y) * block.h;
-  if (snake.alive) {
-    SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x7A, 0xCC, 0xFF);
-  } else {
-    SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
-  }
-  SDL_RenderFillRect(sdl_renderer, &block);
-
+  SDL_RenderFillRect(sdl_renderer, &block);*/
+  // Render Snake
+  block = RenderSnake(block, snake);
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
 }
@@ -134,4 +112,50 @@ void Renderer::Render(Snake const snake, Food &food) {
 void Renderer::UpdateWindowTitle(int score, int fps) {
   std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
+}
+
+void Renderer::ClearScreen()
+{
+  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
+  SDL_RenderClear(sdl_renderer);
+}
+
+std::shared_ptr<SDL_Rect> Renderer::RenderFood(std::shared_ptr<SDL_Rect> block, const Snake& snake, Food& food)
+{
+  auto food_color = food.getColor();
+  SDL_SetRenderDrawColor(sdl_renderer, food_color._r, food_color._g, food_color._b, food_color._a);
+  auto food_position = food.getPosition();
+  block->x = food_position.x * block->w;
+  block->y = food_position.y * block->h;
+  SDL_RenderFillRect(sdl_renderer, block.get());
+
+  SDL_SetRenderDrawColor(sdl_renderer, food_color._r, food_color._g, food_color._b, food_color._a);
+  block->x = food_position.x * block->w;
+  block->y = food_position.y* block->h;
+  SDL_RenderFillRect(sdl_renderer, block.get());
+
+  return block;
+}
+
+std::shared_ptr<SDL_Rect> Renderer::RenderSnake(std::shared_ptr<SDL_Rect> block, const Snake& snake)
+{
+  // Render snake's body
+  SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+  for (SDL_Point const &point : snake.body) {
+    block->x = point.x * block->w;
+    block->y = point.y * block->h;
+    SDL_RenderFillRect(sdl_renderer, block.get());
+  }
+
+  // Render snake's head
+  block->x = static_cast<int>(snake.head_x) * block->w;
+  block->y = static_cast<int>(snake.head_y) * block->h;
+  if (snake.alive) {
+    SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x7A, 0xCC, 0xFF);
+  } else {
+    SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
+  }
+  SDL_RenderFillRect(sdl_renderer, block.get());
+
+  return block;
 }

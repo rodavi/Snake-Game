@@ -18,6 +18,7 @@ class Game {
 
  private:
   Snake snake;
+  Snake snake2;
   //SDL_Point food;
   Food food;
   std::random_device dev;
