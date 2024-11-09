@@ -3,18 +3,14 @@
 This is a new version of the Snake Game, which has been developed to fulfill the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213) 
 The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
-TODO: Create a Gif from the new version of the Snake Game
-<img src="snake_game.gif"/>
+<img src="Github_video_snake.gif"/>
 
 ## New Features
-* The player can summit its name and save its high score.
-* After 15 points scored, the game starts to get more complicated:
-  * Some static obstacles randomly appear.
-* New types of food have been added to the game.
-  * Slowdown the snake
-  * Double the points
-  * Extra life 
-* The difficulty level can be selected before starting the game, this will modify the initial speed.
+* If the score of the player is on the Top 3, then he/she can summit its name and save its score.
+* There are different types of food:
+  * Normal food (1 point)
+  * Golden food (2 points)
+  * Slow food (decreasses snake's speed) 
 * After 50 points scored, an extra snake appears, it has the ability to jump over you but your snake can't.
 
 ## Dependencies for Running Locally
