@@ -11,7 +11,7 @@ The code for this repo was inspired by [this](https://codereview.stackexchange.c
   * Normal food (1 point)
   * Golden food (2 points)
   * Slow food (decreasses snake's speed) 
-* After 50 points scored, an extra snake appears, it has the ability to jump over you but your snake can't.
+* Concurrency has been added to render the body of the snake.
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
