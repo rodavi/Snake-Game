@@ -3,8 +3,7 @@
 This is a new version of the Snake Game, which has been developed to fulfill the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213) 
 The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
-TODO: Create a Gif from the new version of the Snake Game
-<img src="snake_game.gif"/>
+<img src="Github_video_snake.gif"/>
 
 ## New Features
 * The player can summit its name and save its high score.
