@@ -16,7 +16,8 @@ struct Player{
 class Scores{
 
 public:
-    Scores(){}
+    Scores(std::string path):_path{path}{}
+    std::vector<Player> getScores();
     std::vector<Player> getScores(const std::string& path); // It reads a file and return a vector of pairs
     void setScores(Player& p);  // if there is a new top 3 score the player can type its name
     Player getBest();   // returns the best player object

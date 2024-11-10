@@ -6,12 +6,41 @@ The code for this repo was inspired by [this](https://codereview.stackexchange.c
 <img src="Github_video_snake.gif"/>
 
 ## New Features
-* If the score of the player is on the Top 3, then he/she can summit its name and save its score.
+* If the score of the player is on the Top 3, then he can summit its name and save its score.
 * There are different types of food:
   * Normal food (1 point)
   * Golden food (2 points)
   * Slow food (decreasses snake's speed) 
 * Concurrency has been added to render the body of the snake.
+
+## Rubric points addressed
+* Loops, Functions, I/O
+  * The project reads data from a file and process the data, or the program writes data to a file.
+    * scores.cpp/getScores() line 9 - game reads from a file
+    * scores.cpp/setScores() line 40 - game writes in a file
+  * The project accepts user input and processes the input.
+    * controller.cpp/HandleInput() and PauseGame() line 38 & 46 - the user can pause the game (Space)
+    * main.cpp line 27 - user can save his score
+* Object Oriented Programming
+  * One or more classes are added to the project with appropriate access specifiers for class members.
+    * Food and Scores classe added in food.h and scorers.h
+  * Class constructors utilize member initialization lists.
+    * In scores.h and food.h the constructore uses initilization list to define different private variables.
+  * Classes abstract implementation details from their interfaces.
+    * In classes food and scores the methods have been defined so they stick to the abtraction of the classes.
+* Memory Management
+  * The project makes use of references in function declarations.
+    * In food.h, in getPosition() line 27, setPosition() line 28, setColor() line 30.
+  * The project uses move semantics to move data instead of copying it, where possible.
+    * In renderer.cpp/Render() line 85, the snake is been used then moved back to the game.run().
+  * The project uses smart pointers instead of raw pointers.
+    * Line 10 in main a smart pointer is used.
+    * In Render.h, RenderFood and RenderSnake has been overloaded to return and accept a shared pointer.
+* Concurrency
+  * The project uses multithreading.
+    * In method RenderSnake() line 158 in renderer.cpp, concurrency is implemented to render the body of the snake in parallel.
+  * A mutex or lock is used in the project.
+    * In render.h a std::mutex has been added to ensure that not more than one thread access the function ´SDL_RenderFillRect´ (line 206, renderer.cpp).
 
 ## Dependencies for Running Locally
 * cmake >= 3.7

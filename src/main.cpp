@@ -7,8 +7,9 @@
 
 int main() {
 
-  std::unique_ptr<Scores> scored = std::make_unique<Scores>();
-  scored->getScores("scores.txt");
+  std::unique_ptr<Scores> scored = std::make_unique<Scores>("scores.txt");
+  //scored->getScores("scores.txt");
+  scored->getScores();
 
   constexpr std::size_t kFramesPerSecond{60};
   constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};

@@ -81,8 +81,8 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::Render(Snake const snake, Food &food) {
-
+//void Renderer::Render(Snake const snake, Food &food) {
+Snake Renderer::Render(Snake&& snake, Food &food) {
   /*SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;*/
@@ -108,6 +108,8 @@ void Renderer::Render(Snake const snake, Food &food) {
   block = RenderSnake(block, snake);
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
+
+  return std::move(snake);
 }
 
 void Renderer::Render(Snake const snake, Food &food, std::promise<bool>&& prms)

@@ -16,7 +16,8 @@ class Renderer {
   ~Renderer();
 
   void Render(Snake const snake, SDL_Point const &food);
-  void Render(Snake const snake, Food &food);
+  //void Render(Snake const snake, Food &food);
+  Snake Render(Snake&& snake, Food &food);
   void Render(Snake const snake, Food &food, std::promise<bool>&& prms);
   void UpdateWindowTitle(int score, int fps);
 

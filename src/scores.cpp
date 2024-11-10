@@ -6,9 +6,10 @@
     getScores();
 }*/
 
-std::vector<Player> Scores::getScores(const std::string& path)
+//std::vector<Player> Scores::getScores(const std::string& path)
+std::vector<Player> Scores::getScores()
 {
-    _path = "../"+path;
+    _path = "../"+_path;
     std::cout<<_path<<"\n";
     std::string line, player, score;
     _file.open(_path);
